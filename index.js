@@ -1,4 +1,10 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-console */
+
 'use strict';
+
+
+
 //SINGLE DOG FETCH
 function getDogImage(numDogs) {
   console.log('getDogImage ran');
@@ -13,12 +19,13 @@ function displayResults(responseJson) {
   console.log(responseJson);
   //replace the existing image with the new one
   $('.results').empty();
+
   responseJson.message.forEach(img => {
     //console.log(img);
     $('.results').append(
       `<img src="${img}" class="results-img">`
-    )
-  })
+    );
+  });
 }
 
 //SINGLE DOG BUTTON HANDLER
@@ -53,22 +60,63 @@ function handleManyDogSubmit() {
     if(!numDogs){
       numDogs = 3;
       getDogImage(numDogs);
-  } else {
+    } else {
       getDogImage(numDogs);
     }
   });
-};
+}
+
+// function breedAvail(responseJson){
+//   //let noBreed = new Error('Breed not found!');
+//   if(responseJson.message !== 'Breed not found (master breed does not exist)'){
+//     displayResults(responseJson);
+//   }
+//   else{
+//     alert('no breed');
+//   }
+// }
+
+
+function callByBreed(breed) {
+  let breedResponse;
+  fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
+    .then(response => response.json())
+    .then(responseJson => {
+      if(responseJson.message === 'Breed not found (master breed does not exist)'){
+        alert(`Breed "${breed}" not found!`);}})
+    .then(responseJson => displayResults(responseJson));
+}
+
+//https://dog.ceo/api/breed/${breed}/images/random
+
+
+
+function searchBreedSubmit() {
+  $('.findDog').on('click', '#find-breed-button', event => {
+    event.preventDefault();
+    console.log('searchBreedSubmit ran');
+    const breed = $('#find-dogs').val().toLowerCase();
+    console.log(`breed = ${breed}`);
+    callByBreed(breed);
+  });
+}
+
+
+
+
+
 
 function init() {
   handleManyDogSubmit();
-
+  searchBreedSubmit();
 }
+
 $(init);
 
 
-  // $('.js-shopping-list').on('click', '.js-item-delete', event => {
-  //   let currentId = store.findById(event.currentTarget);
-  //   store.findAndDelete(currentId);
-  //   console.log('Item was deleted')
-  //   render();
-  // });
+// $('.js-shopping-list').on('click', '.js-item-delete', event => {
+//   let currentId = store.findById(event.currentTarget);
+//   store.findAndDelete(currentId);
+//   console.log('Item was deleted')
+//   render();
+// });
