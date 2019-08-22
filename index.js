@@ -1,8 +1,8 @@
 'use strict';
 //SINGLE DOG FETCH
-function getDogImage() {
+function getDogImage(numDogs) {
   console.log('getDogImage ran');
-  fetch('https://dog.ceo/api/breeds/image/random')
+  fetch(`https://dog.ceo/api/breeds/image/random/${numDogs}`)
     .then(response => response.json())
     .then(responseJson => 
       displayResults(responseJson))
@@ -12,11 +12,13 @@ function getDogImage() {
 function displayResults(responseJson) {
   console.log(responseJson);
   //replace the existing image with the new one
-  // $('.results-img').replaceWith(
-  //   `<img src="${responseJson.message}" class="results-img">`
-  // )
-  //display the results section
-  // $('.results').removeClass('hidden');
+  $('.results').empty();
+  responseJson.message.forEach(img => {
+    //console.log(img);
+    $('.results').append(
+      `<img src="${img}" class="results-img">`
+    )
+  })
 }
 
 //SINGLE DOG BUTTON HANDLER
@@ -33,33 +35,35 @@ function displayResults(responseJson) {
 // });
 
 //MULTI DOG FETCH
-function getManyDogImages(numDogs) {
-  console.log('getManyDogImages ran');
-  fetch(`https://dog.ceo/api/breeds/image/random/${numDogs}`)
-    .then(response => response.json())
-    .then(responseJson => displayResults(responseJson))
-    .catch(error => alert('Something went wrong. Try again later.'));
-}
+// function getManyDogImages(numDogs) {
+//   console.log('getManyDogImages ran');
+//   fetch(`https://dog.ceo/api/breeds/image/random/${numDogs}`)
+//     .then(response => response.json())
+//     .then(responseJson => displayResults(responseJson))
+//     .catch(error => alert('Something went wrong. Try again later.'));
+// }
 
 //MULTI DOG SUBMIT HANDLER
 function handleManyDogSubmit() {
-  $('.fetchDog').submit(event => {
+  $('.fetchDog').on('click', '#single-dog', event => {
     event.preventDefault();
     console.log('handleManyDogSubmit ran');
     //console.log(event.currentTarget.val());
-    // const numDogs = event.currentTarget.val();
-    // if(typeof numDogs !== 'number'){
-    //   numDogs = 3;
-    //   getManyDogImages(numDogs);
-    // }
-    // else{
-    //   getManyDogImages(numDogs);
-    // }
+    const numDogs = $('#many-dogs').val();
+    if(!numDogs){
+      numDogs = 3;
+      getDogImage(numDogs);
+  } else {
+      getDogImage(numDogs);
+    }
   });
 };
 
+function init() {
+  handleManyDogSubmit();
 
-  $(handleManyDogSubmit);
+}
+$(init);
 
 
   // $('.js-shopping-list').on('click', '.js-item-delete', event => {
