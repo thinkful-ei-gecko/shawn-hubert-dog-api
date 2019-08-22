@@ -4,7 +4,6 @@
 'use strict';
 
 
-
 //SINGLE DOG FETCH
 function getDogImage(numDogs) {
   console.log('getDogImage ran');
@@ -19,7 +18,6 @@ function displayResults(responseJson) {
   console.log(responseJson);
   //replace the existing image with the new one
   $('.results').empty();
-
   responseJson.message.forEach(img => {
     //console.log(img);
     $('.results').append(
@@ -28,27 +26,16 @@ function displayResults(responseJson) {
   });
 }
 
-//SINGLE DOG BUTTON HANDLER
-// function watchForm() {
-//   $('.fetchDog').on('click', '#single-dog', event => {
-//     event.preventDefault();
-//     getDogImage();
-//   });
-// }
+function displayBreedResult(responseJson) {
+  console.log(responseJson);
+  //replace the existing image with the new one
+  $('.results').empty();
+  let img = responseJson.message;
+    $('.results').append(
+      `<img src="${img}" class="results-img">`
+    );
+}
 
-// $(function() {
-//   console.log('App loaded! Waiting for submit!');
-//   watchForm();
-// });
-
-//MULTI DOG FETCH
-// function getManyDogImages(numDogs) {
-//   console.log('getManyDogImages ran');
-//   fetch(`https://dog.ceo/api/breeds/image/random/${numDogs}`)
-//     .then(response => response.json())
-//     .then(responseJson => displayResults(responseJson))
-//     .catch(error => alert('Something went wrong. Try again later.'));
-// }
 
 //MULTI DOG SUBMIT HANDLER
 function handleManyDogSubmit() {
@@ -66,29 +53,16 @@ function handleManyDogSubmit() {
   });
 }
 
-// function breedAvail(responseJson){
-//   //let noBreed = new Error('Breed not found!');
-//   if(responseJson.message !== 'Breed not found (master breed does not exist)'){
-//     displayResults(responseJson);
-//   }
-//   else{
-//     alert('no breed');
-//   }
-// }
-
-
 function callByBreed(breed) {
-  let breedResponse;
+  //let breedResponse;
   fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
     .then(response => response.json())
-    .then(responseJson => {
+    /*.then(responseJson => {
       if(responseJson.message === 'Breed not found (master breed does not exist)'){
-        alert(`Breed "${breed}" not found!`);}})
-    .then(responseJson => displayResults(responseJson));
+        alert(`Breed "${breed}" not found!`);}})*/
+    .then(responseJson => displayBreedResult(responseJson));
+    //.catch(error => alert('Something went wrong. Try again later.'))
 }
-
-//https://dog.ceo/api/breed/${breed}/images/random
-
 
 
 function searchBreedSubmit() {
@@ -102,21 +76,9 @@ function searchBreedSubmit() {
 }
 
 
-
-
-
-
 function init() {
   handleManyDogSubmit();
   searchBreedSubmit();
 }
 
 $(init);
-
-
-// $('.js-shopping-list').on('click', '.js-item-delete', event => {
-//   let currentId = store.findById(event.currentTarget);
-//   store.findAndDelete(currentId);
-//   console.log('Item was deleted')
-//   render();
-// });
