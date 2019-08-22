@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dog API Example</title>
+    <link rel="stylesheet" href="index.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Dog API: A Simple Example</h1>
+
+        <form class="fetchDog" action="">
+          <input type="number" id="many-dogs" min="3" max="50">
+          <br>
+          <input type="button" id="single-dog" value="Get a dog pic!">
+
+        </form>
+
+        <section class="results hidden">
+          <h2>Look at this dog!</h2>
+          <img class="results-img" alt="placeholder">
+        </section>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+</body>
+</html>
+
+
+<!-- 
+<form id="js-shopping-list-form">
+  <label for="shopping-list-entry">Add an item</label>
+  <input type="text" name="shopping-list-entry" class="js-shopping-list-entry" placeholder="e.g., broccoli">
+  <button type="submit">Add item</button>
+  <div>
+    <input type="checkbox" id="filter-checked" class="filter-checked js-filter-checked" />
+    <label for="filter-checked">Hide Checked</label>
+  </div>
+  <div>
+    <label for="js-shopping-list-search-entry">Search:</label>
+    <input type="text" name="shopping-list-search-entry" class="js-shopping-list-search-entry" />
+  </div>
+</form> -->
