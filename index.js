@@ -65,7 +65,6 @@ function handleManyDogSubmit() {
       numDogs = 50;
       getDogImage(numDogs);
       console.log(`in ELSE IF numDogs = ${numDogs}`);
-      // maxDogError();
     }
     else{
       getDogImage(numDogs);
@@ -84,10 +83,40 @@ function searchBreedSubmit() {
   });
 }
 
+
+function grabBreeds() {
+  fetch('https://dog.ceo/api/breeds/list/all')
+    .then(response => response.json())
+    .then(responseJson => {
+      populateDropdown(responseJson.message);})
+    .catch(error => alert('Something went wrong. Try again later.'));
+}
+
+function populateDropdown(breedList) {
+  let dropdown = $('#find-dogs');
+  dropdown.empty();
+  dropdown.append('<option selected="true" disabled>Select breed</option>');
+  dropdown.prop('selectedIndex', 0);
+  let breedKeys = Object.keys(breedList);
+  breedKeys.forEach(key => {
+    console.log(key);
+    dropdown.append($(`<option>${key}</option>`).attr('value', key));
+    breedList[key].forEach(subBreed => {
+      let dropdownSub = `${key} (${subBreed})`;
+      let formedDropdown = `${key}/${subBreed}`;
+      dropdown.append($(`<option>${dropdownSub}</option>`).attr('value', formedDropdown));
+    });
+  });
+}
+
+
+
 //LISTENERS
 function init() {
   handleManyDogSubmit();
   searchBreedSubmit();
+  grabBreeds();
+
 }
 
 $(init);
