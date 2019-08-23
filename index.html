@@ -13,40 +13,21 @@
         <h1>Dog API: A Simple Example</h1>
 
         <form class="fetchDog" action="">
-          <input type="number" id="many-dogs" min="3" max="50">
+          <input type="number" id="many-dogs" value="1">
           <br>
-          <input type="button" id="single-dog" value="Get a dog pic!">
+          <input type="button" id="single-dog" value="Find this many dogs!">
         </form>
           <br>
         <form class="findDog" action="">
-          <input type="text" id="find-dogs">
+          <input type="text" id="find-dogs" value="Shiba">
           <br>
-          <input type="button" id="find-breed-button" value="Find breed">
+          <input type="button" id="find-breed-button" value="Find this breed!">
         </form>
 
-        <section class="results">
-          <h2>Look at this dog!</h2>
-          <img class="results-img">
-        </section>
+        <div class="results"></div>
 
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script src="index.js"></script>
 </body>
 </html>
-
-
-<!-- 
-<form id="js-shopping-list-form">
-  <label for="shopping-list-entry">Add an item</label>
-  <input type="text" name="shopping-list-entry" class="js-shopping-list-entry" placeholder="e.g., broccoli">
-  <button type="submit">Add item</button>
-  <div>
-    <input type="checkbox" id="filter-checked" class="filter-checked js-filter-checked" />
-    <label for="filter-checked">Hide Checked</label>
-  </div>
-  <div>
-    <label for="js-shopping-list-search-entry">Search:</label>
-    <input type="text" name="shopping-list-search-entry" class="js-shopping-list-search-entry" />
-  </div>
-</form> -->

@@ -2,6 +2,18 @@
   box-sizing: border-box;
 }
 
+.results{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+img.results-img {
+  height: 75px;
+  width: auto;
+  margin: 5px;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
 }

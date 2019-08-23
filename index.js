@@ -1,12 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
-
 'use strict';
 
-
-//SINGLE DOG FETCH
+//FETCH DOGS
 function getDogImage(numDogs) {
-  console.log('getDogImage ran');
+  console.log(`getDogImage rand: numDogs = ${numDogs} and type = ${typeof numDogs}`);
   fetch(`https://dog.ceo/api/breeds/image/random/${numDogs}`)
     .then(response => response.json())
     .then(responseJson => 
@@ -14,57 +12,68 @@ function getDogImage(numDogs) {
     .catch(error => alert('Something went wrong. Try again later.'));
 }
 
+//FETCH BREED
+function callByBreed(breed) {
+  fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
+    .then(response => response.json())
+    .then(responseJson => displayBreedResult(responseJson));
+}
+
+//RENDER DOGS
 function displayResults(responseJson) {
   console.log(responseJson);
-  //replace the existing image with the new one
   $('.results').empty();
   responseJson.message.forEach(img => {
-    //console.log(img);
     $('.results').append(
       `<img src="${img}" class="results-img">`
     );
   });
 }
 
+//RENDER BREED
 function displayBreedResult(responseJson) {
   console.log(responseJson);
-  //replace the existing image with the new one
-  $('.results').empty();
-  let img = responseJson.message;
+  if(responseJson.status === 'error'){
+    alert('Breed not found!');
+  }
+  else{
+    $('.results').empty();
+    let img = responseJson.message;
     $('.results').append(
       `<img src="${img}" class="results-img">`
     );
+  }
 }
 
-
-//MULTI DOG SUBMIT HANDLER
+//DOG HANDLER
 function handleManyDogSubmit() {
   $('.fetchDog').on('click', '#single-dog', event => {
     event.preventDefault();
     console.log('handleManyDogSubmit ran');
-    //console.log(event.currentTarget.val());
-    const numDogs = $('#many-dogs').val();
-    if(!numDogs){
+    let dogCount = $('#many-dogs').val();
+    let numDogs = parseInt(dogCount, 10);
+    console.log(`On click dogCount = ${dogCount} and type = ${typeof numDogs}`);
+    console.log(`On click numDogs = ${numDogs} and type = ${typeof numDogs}`);
+    if(numDogs === 0){
+      alert(`You requested ${numDogs} dogs. Whyy not 3?`);
       numDogs = 3;
       getDogImage(numDogs);
-    } else {
+      console.log(`in IF numDogs = ${numDogs}`);
+    } 
+    else if(numDogs > 50) {
+      alert(`Only showing 50 if your requested ${numDogs} dogs!`);
+      numDogs = 50;
+      getDogImage(numDogs);
+      console.log(`in ELSE IF numDogs = ${numDogs}`);
+      // maxDogError();
+    }
+    else{
       getDogImage(numDogs);
     }
   });
 }
 
-function callByBreed(breed) {
-  //let breedResponse;
-  fetch(`https://dog.ceo/api/breed/${breed}/images/random`)
-    .then(response => response.json())
-    /*.then(responseJson => {
-      if(responseJson.message === 'Breed not found (master breed does not exist)'){
-        alert(`Breed "${breed}" not found!`);}})*/
-    .then(responseJson => displayBreedResult(responseJson));
-    //.catch(error => alert('Something went wrong. Try again later.'))
-}
-
-
+//BREED HANDLER
 function searchBreedSubmit() {
   $('.findDog').on('click', '#find-breed-button', event => {
     event.preventDefault();
@@ -75,7 +84,7 @@ function searchBreedSubmit() {
   });
 }
 
-
+//LISTENERS
 function init() {
   handleManyDogSubmit();
   searchBreedSubmit();
