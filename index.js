@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable no-console */
 'use strict';
@@ -9,7 +10,7 @@ function getDogImage(numDogs) {
     .then(response => response.json())
     .then(responseJson => 
       displayResults(responseJson))
-    .catch(error => alert('Something went wrong. Try again later.'));
+    .catch(_error => alert('Something went wrong. Try again later.'));
 }
 
 //FETCH BREED
@@ -49,22 +50,17 @@ function displayBreedResult(responseJson) {
 function handleManyDogSubmit() {
   $('.fetchDog').on('click', '#single-dog', event => {
     event.preventDefault();
-    console.log('handleManyDogSubmit ran');
     let dogCount = $('#many-dogs').val();
     let numDogs = parseInt(dogCount, 10);
-    console.log(`On click dogCount = ${dogCount} and type = ${typeof numDogs}`);
-    console.log(`On click numDogs = ${numDogs} and type = ${typeof numDogs}`);
     if(numDogs === 0){
       alert(`You requested ${numDogs} dogs. Whyy not 3?`);
       numDogs = 3;
       getDogImage(numDogs);
-      console.log(`in IF numDogs = ${numDogs}`);
     } 
     else if(numDogs > 50) {
       alert(`Only showing 50 if your requested ${numDogs} dogs!`);
       numDogs = 50;
       getDogImage(numDogs);
-      console.log(`in ELSE IF numDogs = ${numDogs}`);
     }
     else{
       getDogImage(numDogs);
@@ -76,9 +72,7 @@ function handleManyDogSubmit() {
 function searchBreedSubmit() {
   $('.findDog').on('click', '#find-breed-button', event => {
     event.preventDefault();
-    console.log('searchBreedSubmit ran');
     const breed = $('#find-dogs').val().toLowerCase();
-    console.log(`breed = ${breed}`);
     callByBreed(breed);
   });
 }
@@ -100,7 +94,6 @@ function populateDropdown(breedList) {
   dropdown.prop('selectedIndex', 0);
   let breedKeys = Object.keys(breedList);
   breedKeys.forEach(key => {
-    console.log(key);
     dropdown.append($(`<option>${key}</option>`).attr('value', key));
     breedList[key].forEach(subBreed => {
       let dropdownSub = `${key} (${subBreed})`;
