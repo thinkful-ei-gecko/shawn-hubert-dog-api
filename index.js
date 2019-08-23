@@ -83,7 +83,7 @@ function searchBreedSubmit() {
   });
 }
 
-
+//FETCH AVAILABLE BREEDS
 function grabBreeds() {
   fetch('https://dog.ceo/api/breeds/list/all')
     .then(response => response.json())
@@ -92,6 +92,7 @@ function grabBreeds() {
     .catch(error => alert('Something went wrong. Try again later.'));
 }
 
+//BREED HANDLER
 function populateDropdown(breedList) {
   let dropdown = $('#find-dogs');
   dropdown.empty();
@@ -109,14 +110,11 @@ function populateDropdown(breedList) {
   });
 }
 
-
-
 //LISTENERS
 function init() {
   handleManyDogSubmit();
   searchBreedSubmit();
   grabBreeds();
-
 }
 
 $(init);
