@@ -3,7 +3,7 @@ Thinkful EI34
 DOG API (pair project)
 
 Participants:
-Shawn Collette
+Shawn Collette,
 Hubert Yang
 
 Repo:
